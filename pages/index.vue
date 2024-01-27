@@ -4,7 +4,7 @@
         <Actions />
         <!-- Cards section -->
         <div class="flex flex-wrap gap-3 justify-center">
-            <div v-for="i in [1,2,3,4,5]" :key="i">
+            <div v-for="i in [1,2,3,4,5,6]" :key="i">
                 <ProductCard />
             </div>
         </div>

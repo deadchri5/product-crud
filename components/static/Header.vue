@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex justify-between p-4 px-8 bg-[#5fcebc]">
+    <nav class="flex justify-between p-4 px-8 bg-[#5fcebc] fixed w-full top-0 z-10">
         <span class="text-2xl font-bold text-neutral-900">
             Products
         </span>
