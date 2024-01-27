@@ -3,11 +3,22 @@ import ItemDto from '~/dtos/Item'
 
 type EditItem = Omit<ItemDto, 'updated_at'>
 
+interface Id {
+    id: string
+} 
+
 export default defineEventHandler(async(event) => {
+    const query: Id = getQuery(event)
     const body: EditItem = await readBody(event)
+    if (!query.id) {
+        setResponseStatus(event, 400)
+        return {
+            message: 'You must proide an id'
+        }
+    }
     try {
         // search item
-        const { rows } = await sql`SELECT name, description, price FROM Items Where id = ${body.id}`
+        const { rows } = await sql`SELECT name, description, price FROM Items Where id = ${query.id}`
         if (rows.length === 0) {
             setResponseStatus(event, 404)
             return {

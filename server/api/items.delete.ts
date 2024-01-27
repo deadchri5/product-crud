@@ -1,21 +1,23 @@
 import { sql } from '@vercel/postgres'
 import ItemDto from '~/dtos/Item'
 
-type Item = Pick<ItemDto, 'id'>
+interface Id {
+    id: string
+}
 
 export default defineEventHandler(async(event) => {
-    const body: Item = await readBody(event)
-    if (!body.id) {
+    const query: Id = getQuery(event)
+    if (!query.id) {
         setResponseStatus(event, 400)
         return {
             error: 'No id provided'
         }
     }
     try {
-        await sql`DELETE FROM Items WHERE id = ${body.id}`
+        await sql`DELETE FROM Items WHERE id = ${query.id}`
         setResponseStatus(event, 200)
         return {
-            message: `Item ${body.id} was successfully deleted.`
+            message: `Item ${query.id} was successfully deleted.`
         }
     } catch(error) {
         setResponseStatus(event, 500)
