@@ -17,6 +17,15 @@ This project is built with Nuxt 3 and requires Node.js version 18 or higher. Add
     npm install
     ```
 
+3. **Add environment variables:**
+
+    Create a new .env file within this follow params
+    
+    ```env
+    VUE_APP_API_KEY=yourapikey
+    VUE_APP_BASE_URL=https://api.example.com
+    ```
+
 ## Running the Application
 
 To run the application locally, use the following command:
