@@ -54,3 +54,11 @@ The application uses 5 endpoints, each one has the functionalities of a CRUD.
 ```http
 GET https://product-crud-nine.vercel.app/api/items
 GET https://product-crud-nine.vercel.app/api/items?id=dc052061-ea7e-4c96-b2d3-9941d6f115f6
+```
+
+#### Response:
+- **Status codes:**
+- **HTTP Status Codes:**
+  - 200 OK: Successful request.
+  - 404 Not Found: Item not found.
+  - 500 Internal Server Error: Something went wrong on the server.
