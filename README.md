@@ -37,3 +37,19 @@ To run the application locally, use the following command:
 ```bash
 npm run dev
 ```
+
+## Api Endpoints
+
+The application uses 5 endpoints, each one has the functionalities of a CRUD.
+
+### Request
+
+- **Method:** GET
+- **URL:** `/items`
+- **Parameters:**
+  - `id` (optional): The ID of the specific item to retrieve.
+
+#### Example Request:
+
+```http
+GET /items?id=123
