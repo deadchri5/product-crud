@@ -20,7 +20,9 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.12.3",
     "@vercel/node": "^3.0.17",
-    "@vercel/postgres": "^0.7.2"
+    "@vercel/postgres": "^0.7.2",
+    "timeago.js": "^4.0.2"
   }
 }

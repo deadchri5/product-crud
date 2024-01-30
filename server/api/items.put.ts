@@ -13,12 +13,12 @@ export default defineEventHandler(async(event) => {
     if (!query.id) {
         setResponseStatus(event, 400)
         return {
-            message: 'You must proide an id'
+            message: 'You must provide an id'
         }
     }
     try {
         // search item
-        const { rows } = await sql`SELECT name, description, price FROM Items Where id = ${query.id}`
+        const { rows } = await sql`SELECT name, description, price FROM Items WHERE id = ${query.id}`
         if (rows.length === 0) {
             setResponseStatus(event, 404)
             return {
@@ -30,7 +30,7 @@ export default defineEventHandler(async(event) => {
         const price = body.price ? body.price : rows[0].price
         // item exist
         await sql`UPDATE Items SET name = ${name}, description = ${description}, price = ${price}, updated_at = NOW() 
-                  WHERE id = ${body.id}`
+                  WHERE id = ${query.id}`
         setResponseStatus(event, 201)
         return {
             message: 'Item updated'

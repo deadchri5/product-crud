@@ -13,12 +13,13 @@ export default defineEventHandler(async(event) => {
     try {
         await sql`INSERT INTO Items (id, name, description, price, created_at, updated_at)
                   VALUES (${crypto.randomUUID()}, ${item.name}, ${item.description}, 
-                  ${item.price}, to_timestamp(${Date.now() / 1000}), to_timestamp(${Date.now() / 1000}))`
+                  ${item.price}, NOW(), NOW())`
         setResponseStatus(event, 201)
         return {
             message: 'Se inserto el nuevo item.'
         }
     } catch(error) {
+        console.log(error);
         setResponseStatus(event, 500)
         return {
             message: 'Error al insertar el nuevo item.'

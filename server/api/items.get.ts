@@ -5,7 +5,7 @@ export default defineEventHandler(async(event) => {
     
     if (!id) {
         try {
-            const { rows } = await sql`SELECT * FROM Items`
+            const { rows } = await sql`SELECT * FROM Items ORDER BY created_at DESC`
             setResponseStatus(event, 200)
             return rows
         } catch (error) {

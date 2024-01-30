@@ -10,7 +10,8 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/google-fonts',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxt/ui'
   ],
   googleFonts: {
     display: 'swap',
