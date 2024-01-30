@@ -22,8 +22,12 @@ This project is built with Nuxt 3 and requires Node.js version 18 or higher. Add
     Create a new .env file within this follow params
     
     ```env
-    VUE_APP_API_KEY=yourapikey
-    VUE_APP_BASE_URL=https://api.example.com
+    POSTGRES_URL="YOUR_POSTGRES_URL"
+    POSTGRES_URL_NON_POOLING="YOUR_POSTGRES_URL_NON_POOLING"
+    POSTGRES_USER="YOUR_POSTGRES_USER"
+    POSTGRES_HOST="YOUR_POSTGRES_HOST"
+    POSTGRES_PASSWORD="YOUR_POSTGRES_PASSWORD"
+    POSTGRES_DATABASE="YOUR_POSTGRES_DATABASE"
     ```
 
 ## Running the Application
