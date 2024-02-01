@@ -63,6 +63,8 @@ GET https://product-crud-nine.vercel.app/api/items?id=dc052061-ea7e-4c96-b2d3-99
   - 404 Not Found: Item not found.
   - 500 Internal Server Error: Something went wrong on the server.
 
+### Request
+
 - **Method:** POST
 - **URL:** `/items`
 - **BODY:**
