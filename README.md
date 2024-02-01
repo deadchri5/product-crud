@@ -28,6 +28,7 @@ This project is built with Nuxt 3 and requires Node.js version 18 or higher. Add
     POSTGRES_HOST="YOUR_POSTGRES_HOST"
     POSTGRES_PASSWORD="YOUR_POSTGRES_PASSWORD"
     POSTGRES_DATABASE="YOUR_POSTGRES_DATABASE"
+    JWT_SECRET="YOUR_JWT_SECRET"
     ```
 
 ## Running the Application
