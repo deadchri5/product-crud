@@ -90,6 +90,6 @@ curl -X POST \
 #### Response:
 - **Status codes:**
 - **HTTP Status Codes:**
-  - 200 OK: Successful request.
+  - 200 OK: Successful request
   - 404 Not Found: Item not found.
   - 500 Internal Server Error: Something went wrong on the server.
