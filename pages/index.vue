@@ -8,54 +8,47 @@
                 <ProductCard @update-products="handleUpdate" :item="val" />
             </div>
         </div>
+        <p class="text-black">
+            {{ userStore.getEmail }}
+        </p>
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import ProductCard from '../components/product/ProductCard.vue'
-import ButtonActions from '~/components/actions/ButtonActions.vue';
-import { defineComponent } from 'vue';
+import ButtonActions from '~/components/actions/ButtonActions.vue'
+import { useUserStore } from '~/stores/userStore'
+import { ref } from 'vue'
 import type Item from '~/dtos/Item'
 
-export default defineComponent({
-    components: {
-        ProductCard,
-        ButtonActions
-    },
-    data() {
-        return {
-            products: [] as Item[]|null
-        }
-    },
-    async mounted() {
-        this.getProducts()
-    },
-    methods: {
-        async handleUpdate () {
-            console.log('logg')
-            const { data } = await useFetch<Item[]|null>('/api/items', {
-                method: 'GET'
-            })
-            this.products = data.value
-            console.log('log')
-        },
-        async getProducts () {
-            const { data, error } = await useFetch<Item[]|null>('/api/items', {
-                method: 'GET'
-            })
-            if (error) {
-                if (this.products === null || this.products.length === 0) {
-                    this.getProducts()
-                }
-                console.log(error)
-            }
-            this.products = data.value
-        }
-    }
+const userStore = useUserStore()
+
+const products = ref<Item[]|null>([])
+
+definePageMeta({
+    middleware: ['auth']
 })
 
-</script>
 
-<style>
-    
-</style>
+async function handleUpdate () {
+    const { data } = await useFetch<Item[]|null>('/api/items', {
+        method: 'GET'
+    })
+    products.value = data.value
+}
+
+async function getProducts () {
+    const { data, error } = await useFetch<Item[]|null>('/api/items', {
+        method: 'GET'
+    })
+    if (error.value) {
+        if (products.value === null || products.value.length === 0) {
+            getProducts()
+        }
+    }
+    products.value = data.value
+}
+
+getProducts()
+
+</script>

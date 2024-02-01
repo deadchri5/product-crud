@@ -33,7 +33,7 @@ export default defineEventHandler(async(event) => {
                   WHERE id = ${query.id}`
         setResponseStatus(event, 201)
         return {
-            message: 'Item updated'
+            message: `Item ${query.id} updated`
         }
     } catch (error) {
         setResponseStatus(event, 500)

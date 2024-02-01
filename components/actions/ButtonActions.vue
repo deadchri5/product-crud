@@ -50,16 +50,12 @@ export default defineComponent({
             showModal: false
         }
     },
-    mounted() {
-        console.log('sad')
-        this.$emit('updateProducts')
-    },
     methods: {
         openModal(): void {
             this.showModal = !this.showModal
         },
         async addItem() {
-            const { data } = await useFetch<defaultMessage>('/api/items', {
+            const { data, error } = await useFetch<defaultMessage>('/api/items', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,6 +66,15 @@ export default defineComponent({
                     price: this.price
                 }
             })
+            if (error.value) {
+                const message = error.value.data?.message
+                if (message) {
+                    alert('Endpoint says: ' + message)
+                } else {
+                    alert('Error on add item')
+                }
+                return
+            }
             this.openModal()
             this.name = ''
             this.description = ''

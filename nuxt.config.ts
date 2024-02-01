@@ -11,8 +11,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/google-fonts',
     'nuxt-icon',
+    '@pinia/nuxt',
     '@nuxt/ui'
   ],
+  runtimeConfig: {
+    jwtSecret: process.env.JWT_SECRET,
+  },
   googleFonts: {
     display: 'swap',
     families: {

@@ -10,7 +10,7 @@ export default defineEventHandler(async(event) => {
     if (!query.id) {
         setResponseStatus(event, 400)
         return {
-            error: 'No id provided'
+            message: 'No id provided'
         }
     }
     try {

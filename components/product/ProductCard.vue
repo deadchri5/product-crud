@@ -6,7 +6,7 @@
             <div class="overflow-hidden">
                 <img
                 class="w-full h-[200px] object-cover rounded-tl-lg rounded-tr-lg transition duration-100 ease-in hover:scale-110"
-                src="https://coyote.ca/wp/wp-content/uploads/2013/09/generic_brands_web_700x650.jpg" alt="product"
+                src="https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg" alt="product"
                 >
             </div>
             <div class="p-4 overflow-hidden">
@@ -19,15 +19,15 @@
         <div class="w-full">
             <button
             type="button"
-            @click="deleteProduct(item.id)"
-            class="bg-red-600 p-2 rounded-lg rounded-t-none rounded-br-none w-[50%]"
+            @click="handleDelete()"
+            class="bg-[#d9534f] p-2 rounded-lg rounded-t-none rounded-br-none w-[50%] transition duration-100 ease-in hover:bg-red-900"
             >
                 Delete
             </button>
             <button
                 type="button"
                 @click="openModal"
-                class="bg-yellow-500 p-2 rounded-lg rounded-t-none rounded-bl-none  w-[50%]"
+                class="bg-[#5bc0de] p-2 rounded-lg rounded-t-none rounded-bl-none w-[50%] transition duration-100 ease-in hover:bg-blue-900"
             >
                 Edit
             </button>
@@ -50,6 +50,7 @@
                 class="mt-6 w-[90px] justify-center"
                 color="primary"
                 variant="solid"
+                @click="updateProduct"
             >
                 Edit
             </UButton>
@@ -59,6 +60,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Swal from 'sweetalert2'
 import { format } from 'timeago.js'
 import type Item from '~/dtos/Item';
 
@@ -82,6 +84,15 @@ export default defineComponent({
             type: Object as () => Item
         }
     },
+    watch: {
+        item(newVal: Item) {
+            const formatter = new Intl.NumberFormat('es-MX', {
+                style: 'currency',
+                currency: 'MXN',
+            })
+            this.formattedPrice = formatter.format(newVal.price)
+        }
+    },
     mounted() {
         this.formCustom = {...this.$props.item}
         const formatter = new Intl.NumberFormat('es-MX', {
@@ -93,14 +104,46 @@ export default defineComponent({
     },
     methods: {
         async deleteProduct(id: string) {
-            const { data } = await useFetch<defaultResponse>('/api/items', {
+
+            const { data, error } = await useFetch<defaultResponse>('/api/items', {
                 method: 'DELETE',
                 params: {
                     id
                 }
             })
+            if (error.value) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error Deleting Product",
+                    text: error.value.message,
+                })
+                return
+            }
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: data.value?.message,
+                showConfirmButton: false,
+                timer: 2500
+            })
             this.$emit('updateProducts')
-            console.log(data.value?.message)
+        },
+        handleDelete() {
+            Swal.fire({
+                title: "This Item will be deleted permanently, are you sure?",
+                showDenyButton: true,
+                confirmButtonText: "Delete",
+                denyButtonText: `Go back`,
+                denyButtonColor: '#5bc0de',
+                confirmButtonColor: '#d9534f'
+                })
+                .then(async (result) => {
+                    if (result.isConfirmed) {
+                        this.deleteProduct(this.item.id)
+                    } else if (result.isDenied) {
+                        return
+                    }
+                })
         },
         async editProduct() {
             this.openModal()
@@ -108,7 +151,7 @@ export default defineComponent({
         openModal(): void {
             this.showModal = !this.showModal
         },
-        async updateProduct(e) {
+        async updateProduct() {
             const { data, error } = await useFetch<defaultResponse>('/api/items', {
                 method: 'PUT',
                 headers: {
@@ -123,9 +166,17 @@ export default defineComponent({
                     price: this.formCustom.price
                 }
             })
-            if (error) {
+            if (error.value) {
                 console.log('se produjo un error')
+                return
             }
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: data.value?.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
             this.openModal()
             this.$emit('updateProducts')
         },

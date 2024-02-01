@@ -10,6 +10,12 @@ export default defineEventHandler(async(event) => {
             message: 'name, description and price are required'
         }
     }
+    if (item.description.length > 255) {
+        setResponseStatus(event, 400)
+        return {
+            message: 'description too long, make sure it is less than 255 characters'
+        }
+    }
     try {
         await sql`INSERT INTO Items (id, name, description, price, created_at, updated_at)
                   VALUES (${crypto.randomUUID()}, ${item.name}, ${item.description}, 

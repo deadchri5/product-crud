@@ -22,7 +22,7 @@ export default defineEventHandler(async(event) => {
         if (rows.length === 0) {
             setResponseStatus(event, 404)
             return {
-                message: 'Item not found'
+                message: `Item with id "${id}" not found`
             }
         }
         setResponseStatus(event, 200)

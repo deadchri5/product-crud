@@ -62,3 +62,31 @@ GET https://product-crud-nine.vercel.app/api/items?id=dc052061-ea7e-4c96-b2d3-99
   - 200 OK: Successful request.
   - 404 Not Found: Item not found.
   - 500 Internal Server Error: Something went wrong on the server.
+
+- **Method:** POST
+- **URL:** `/items`
+- **BODY:**
+  - Need 3 params: name, description and price
+  ```
+  {
+    "name": "Item Name",
+    "description": "Item Description",
+    "price": 29.99
+  }
+  ```
+
+#### Example Request:
+
+```http
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"name": "New Item", "description": "A new item", "price": 19.99}' \
+  https://product-crud-nine.vercel.app/api/items
+```
+
+#### Response:
+- **Status codes:**
+- **HTTP Status Codes:**
+  - 200 OK: Successful request.
+  - 404 Not Found: Item not found.
+  - 500 Internal Server Error: Something went wrong on the server.
